@@ -1,0 +1,2 @@
+#!/bin/bash
+(declare -p; printenv; declare -F) | awk '{if ($0 ~ /=/) {print $3} else {print}}'
