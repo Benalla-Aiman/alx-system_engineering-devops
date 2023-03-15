@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -1 | grep -n "" | grep -E "^[0-9]*[02468]:.*" | cut -d: -f2-
+ls -p | grep -v '/\|^\s*$'
