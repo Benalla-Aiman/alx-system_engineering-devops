@@ -1,1 +1,1 @@
-this is a project of mysql
+this project is about mysql server and how you can work with it
