@@ -1,29 +1,21 @@
 #!/usr/bin/python3
-"""Module to fetch data from the JSONPlaceholder API"""
-
+"""
+    Uses the fake API to get an employer
+"""
 import requests
-import sys
-
-def get_employee_data(employee_id):
-    """Fetch and print the TODO list progress for a given employee ID"""
-    user_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
-    todos_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
-
-    user = requests.get(user_url).json()
-    todos = requests.get(todos_url).json()
-
-    done_tasks = [task for task in todos if task['completed']]
-    total_tasks = len(todos)
-
-    print(f"Employee {user['name']} is done with tasks({len(done_tasks)}/{total_tasks}):")
-    for task in done_tasks:
-        print("\t", task["title"])
+from sys import argv
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: ./0-gather_data_from_an_API.py <employee_id>")
-        sys.exit(1)
-    
-    employee_id = int(sys.argv[1])
-    get_employee_data(employee_id)
-
+    id_em = argv[1]
+    url_employ = "https://jsonplaceholder.typicode.com/users/{}".format(id_em)
+    url_todos = url_employ + "/todos"
+    r_employ = requests.get(url_employ).json()
+    r_todos = requests.get(url_todos).json()
+    name = r_employ.get("name")
+    total_num_task = r_todos
+    done_task = [task for task in r_todos if task.get("completed")]
+    output = "Employee {} is done with tasks({}/{}):".format(
+                name, len(done_task), len(total_num_task))
+    for task in done_task:
+        output += "\n\t " + task.get("title")
+    print(output)
